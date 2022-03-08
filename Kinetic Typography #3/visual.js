@@ -5,13 +5,14 @@ import {
     Particle
 } from "./particle.js";
 
-export const RANDOM_TEXT = 'KYUYEON'
+//export let RANDOM_TEXT = INPUT_TEXT
+import {INPUT_TEXT} from "./app.js"
 
 export class Visual {
     constructor() {
         this.text = new Text();
 
-        this.textArr = RANDOM_TEXT.split(',');
+        this.textArr = INPUT_TEXT.split(',');
 
         this.particles = [];
 
@@ -26,7 +27,7 @@ export class Visual {
 
     show(stageWidth, stageHeight) {
         const str = this.textArr[Math.round(Math.random() * (this.textArr.length - 1))];
-        this.pos = this.text.setText(str, 15, stageWidth, stageHeight);
+        this.pos = this.text.setText(str, 7, stageWidth, stageHeight);
 
         this.particles = [];
         for (let i = 0; i < this.pos.length; i++) {

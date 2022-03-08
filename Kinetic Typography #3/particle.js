@@ -1,4 +1,5 @@
-import {RANDOM_TEXT} from './visual.js'
+
+import {INPUT_TEXT} from "./app.js"
 
 const FRICTION = 0.10;
 const COLOR_SPEED = 0.12;
@@ -13,7 +14,7 @@ export class Particle {
         this.vy = 0;
         this.radius = 10;
 
-        this.textArr = RANDOM_TEXT.split('');
+        this.textArr = [...INPUT_TEXT]
         this.cur = 0;
         this.total = this.textArr.length;
 
@@ -62,7 +63,7 @@ export class Particle {
         ctx.fillStyle = color;
 
         const fontWidth = 700;
-        const fontSize = 10;
+        const fontSize = 7;
         const fontName = 'Hind';
         ctx.font = `${fontWidth} ${fontSize}px ${fontName}`;
         ctx.textBaseline = 'middle';
