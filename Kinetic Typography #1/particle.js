@@ -1,10 +1,10 @@
-const FRICTION = 0.86;
-const MOVE_SPEED = 0.1;
+const FRICTION = 0.66;
+const MOVE_SPEED = 0.2;
  
 export class Particle {
     constructor(pos, texture) {
         this.sprite = new PIXI.Sprite(texture);
-        this.sprite.scale.set(0.1);
+        this.sprite.scale.set(0.2);
         this.sprite.tint = 0xffffff;
 
         this.savedX = pos.x;

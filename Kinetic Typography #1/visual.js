@@ -73,7 +73,7 @@ export class Visual {
                 item.vx -= ax;
                 item.vy -= ay;
 
-                console.log('충돌!')
+                //console.log('충돌!')
             }
             item.draw(ctx, t);
             //console.log(item)
