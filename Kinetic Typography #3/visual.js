@@ -1,9 +1,5 @@
-import {
-    Text
-} from "./text.js";
-import {
-    Particle
-} from "./particle.js";
+import { Text } from "./text.js";
+import { Particle } from "./particle.js";
 
 import {INPUT_TEXT} from "./app.js"
 
@@ -33,8 +29,7 @@ export class Visual {
             const item = new Particle(this.pos[i]);
             this.particles.push(item);
         }
-        }
-
+    }
     animate(ctx, t) {
         for ( let i = 0; i < this.particles.length; i++) {
             const item = this.particles[i];

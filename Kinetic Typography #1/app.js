@@ -1,5 +1,4 @@
 import { Visual } from "./visual.js";
-//import * as PIXI from './node_modules/pixi.js'
 
 class App {
     constructor() {
@@ -86,12 +85,16 @@ class App {
     animate(t) {
         requestAnimationFrame(this.animate.bind(this));
 
-        this.visual.animate();
+        this.visual.animate(this.ctx, t);
 
         this.renderer.render(this.stage);
+
     }
 }
+export let INPUT_TEXT = ''
 
 window.onload = () => {
     new App();
+    let TEXT = prompt('텍스트를 입력하세요', 'Hello!')
+    INPUT_TEXT = TEXT == null ? `Hello!` : TEXT
 }

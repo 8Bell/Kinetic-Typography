@@ -1,5 +1,6 @@
 import { Text } from "./text.js";
 import { Particle } from "./particle.js";
+import {INPUT_TEXT} from "./app.js"
 
 export class Visual {
     constructor() {
@@ -12,7 +13,7 @@ export class Visual {
         this.mouse = {
             x: 0,
             y: 0,
-            radius: 100
+            radius: 50
         };
 
         document.addEventListener('pointermove', this.onMove.bind(this), false);
@@ -23,7 +24,7 @@ export class Visual {
             stage.removeChild(this.container);
         }
 
-        this.pos = this.text.setText('T', 2, stageWidth, stageHeight);
+        this.pos = this.text.setText(INPUT_TEXT, 2, stageWidth, stageHeight);
 
         this.container = new PIXI.ParticleContainer(
             this.pos.length,
@@ -46,32 +47,33 @@ export class Visual {
             this.particles.push(item);
         }
     }
-    animate() {
-        for (let i = 0; i < this.particles.length; i++) {
+    animate(ctx, t) {
+        for ( let i = 0; i < this.particles.length; i++) {
             const item = this.particles[i];
+            
             const dx = this.mouse.x - item.x;
-            const dy = this.mouse.y = item.y;
-            const dist = Math.sqrt( dx*dx + dy*dy);
+            const dy = this.mouse.y - item.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
             const minDist = item.radius + this.mouse.radius;
 
-            if(dist < minDist) {
+            if (dist < minDist) {
                 const angle = Math.atan2(dy,dx);
-                const tx = item.x + Math.cos(angle)*minDist;
-                const ty = item.y + Math.sin(angle)*minDist;
+                const tx = item.x + Math.cos(angle) * minDist;
+                const ty = item.y + Math.sin(angle) * minDist;
                 const ax = tx - this.mouse.x;
                 const ay = ty - this.mouse.y;
                 item.vx -= ax;
                 item.vy -= ay;
                 item.collide();
+                
             }
 
-            item.draw();
+            item.draw(ctx, t);
         }
     }
 
     onMove(e) {
         this.mouse.x = e.clientX;
         this.mouse.y = e.clientY;
-
-    }
-}
+       }
+   }

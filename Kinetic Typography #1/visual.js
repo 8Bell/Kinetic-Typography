@@ -1,6 +1,6 @@
 import { Text } from "./text.js";
 import { Particle } from "./particle.js";
-//import * as PIXI from './node_modules/pixi.js'
+import {INPUT_TEXT} from "./app.js"
 
 export class Visual {
     constructor() {
@@ -13,7 +13,7 @@ export class Visual {
         this.mouse = {
             x: 0,
             y: 0,
-            radius: 100,
+            radius: 50,
         }; 
 
         document.addEventListener('pointermove', this.onMove.bind(this), false);
@@ -24,7 +24,7 @@ export class Visual {
             stage.removeChild(this.container);
         }
 
-        this.pos = this.text.setText('B', 10, stageWidth, stageHeight);
+        this.pos = this.text.setText(INPUT_TEXT, 7, stageWidth, stageHeight);
 
         this.container = new PIXI.ParticleContainer(
             this.pos.length,
@@ -46,16 +46,20 @@ export class Visual {
             const item = new Particle(this.pos[i], this.texture);
             this.container.addChild(item.sprite);
             this.particles.push(item);
+
+            //console.log('pos.length',this.pos.length)
+            //console.log('item',item)
         }    
 
     }
 
-    animate() {
-        for (let i = 0; i < 1; i++) { // 모든 파티클에 대해 적용
+    animate(ctx, t) {
+        for ( let i = 0; i < this.particles.length; i++) { // 모든 파티클에 대해 적용
             const item = this.particles[i]; 
+
             const dx = this.mouse.x - item.x;  // dx는 마우스와 파티클 사이간 중심 사이의 x축 좌표 차이
             const dy = this.mouse.y - item.y;
-            const dist = Math.sqrt(dx * dx + dy * dy); //dist(distance) = 마우스와 파티클 사이의 직선 거리(피타고라스)
+            const dist = Math.sqrt(dx*dx + dy*dy); //dist(distance) = 마우스와 파티클 사이의 직선 거리(피타고라스)
             const minDist = item.radius + this.mouse.radius; // 충돌거리 = 파티클의 반지름과 마우스 영역의 반지름을 더한 값
             
             //console.log('dx',dx)
@@ -68,18 +72,17 @@ export class Visual {
                 const ay = ty - this.mouse.y;
                 item.vx -= ax;
                 item.vy -= ay;
-                item.collide();
 
                 console.log('충돌!')
             }
-            item.draw();
+            item.draw(ctx, t);
             //console.log(item)
         }
     }
 
     onMove(e) {
         this.mouse.x = e.clientX;
-        this.mouse.y = e.clienty;
+        this.mouse.y = e.clientY;
         //console.log('mouse',this.mouse.x,this.mouse.y)
     }
 }
