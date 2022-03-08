@@ -1,6 +1,6 @@
-export class Text {
+export class Text{
     
-    constructor() {
+    constructor(){
         this.canvas = document.createElement('canvas');
         // this.canvas.style.position = 'absolute';
         // this.canvas.style.left = '0';
@@ -35,7 +35,7 @@ export class Text {
         return this.dotPos(density, stageWidth, stageHeight);
     }
 
-    dotPos(density, stageWidth, stageHeight) {
+    dotPos(density, stageWidth, stageHeight){
         const imageData = this.ctx.getImageData(
             0, 0,
             stageWidth, stageHeight

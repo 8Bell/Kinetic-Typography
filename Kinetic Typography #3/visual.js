@@ -5,7 +5,6 @@ import {
     Particle
 } from "./particle.js";
 
-//export let RANDOM_TEXT = INPUT_TEXT
 import {INPUT_TEXT} from "./app.js"
 
 export class Visual {
